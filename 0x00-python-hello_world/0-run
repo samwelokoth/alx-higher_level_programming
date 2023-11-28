@@ -1,17 +1,2 @@
 #!/bin/bash
-#check if the $PYFILE variable is set
-
-if [ -z "$PYFILE" ] ; then
-echo "Error:Environment variable \$PYFILE is not set"
-exit
-fi
-#check if the specified python file is available
-
-if [ ! -f "$PYFILE" ] ; then
-echo "No file found"
-exit 1
-
-fi
-#Runn python script
-
-python3 "$PYFILE"
+python3 $PYFILE
