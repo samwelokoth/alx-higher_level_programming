@@ -19,14 +19,19 @@ def safe_print_list(my_list=[], x=0):
             count += 1  
         except IndexError:
             pass
-        finally:
-            print("\n")
 
+    print("")  # Print a new line after printing all elements
     return count
 
 # Implementation of the list
-my_list = ['somethingstupid\n', 234, 23, 12, 54]
+my_list = ['somethingstupid', 234, 23, 12, 54]
 elements_printed = safe_print_list(my_list, 3)        
+print("The number of elements printed are:", elements_printed)
+
+
+# Implementation of the list
+my_list = ['somethingstupid', 234, 23, 12, 54]
+elements_printed = safe_print_list(my_list, 7)        
 print("The number of elements printed are:", elements_printed)
 
 
