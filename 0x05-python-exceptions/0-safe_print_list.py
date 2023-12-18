@@ -27,13 +27,3 @@ def safe_print_list(my_list=[], x=0):
 my_list = ['somethingstupid', 234, 23, 12, 54]
 elements_printed = safe_print_list(my_list, 3)        
 print("The number of elements printed are:", elements_printed)
-
-
-# Implementation of the list
-my_list = ['somethingstupid', 234, 23, 12, 54]
-elements_printed = safe_print_list(my_list, 7)        
-print("The number of elements printed are:", elements_printed)
-
-
-
-
