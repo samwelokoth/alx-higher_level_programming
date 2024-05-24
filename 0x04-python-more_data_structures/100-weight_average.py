@@ -1,4 +1,3 @@
-
 #!/usr/bin/python3
 def weight_average(my_list=[]):
     if not my_list:
@@ -12,4 +11,3 @@ def weight_average(my_list=[]):
         den += tup[1]
 
     return (num / den)
-
