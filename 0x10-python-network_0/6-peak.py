@@ -1,18 +1,23 @@
-def find_peaks(list_of_integers):
-    peaks = []
-
-    for i in range(len(list_of_integers)):
-        if i == 0 and list_of_integers[i] >= list_of_integers[i+1]:
-            peaks.append(list_of_integers[i])
-        elif i == len(list_of_integers)-1 and list_of_integers[i] >= list_of_integers[i-1]:
-            peaks.append(list_of_integers[i])
-        else:
-            if list_of_integers[i] >= list_of_integers[i-1] and list_of_integers[i] >= list_of_integers[i+1]:
-                peaks.append(list_of_integers[i])
-                
-    return peaks
+#!/usr/bin/python3
+"""Defines a peak-finding algorithm."""
 
 
-# Example usage
-unsorted_array = [1, 3, 20, 4, 1, 0]
-print("Peaks:", find_peaks(unsorted_array))
+def find_peak(list_of_integers):
+    """Return a peak in a list of unsorted integers."""
+    if list_of_integers == []:
+        return None
+
+    size = len(list_of_integers)
+    if size == 1:
+        return list_of_integers[0]
+    elif size == 2:
+        return max(list_of_integers)
+
+    mid = int(size / 2)
+    peak = list_of_integers[mid]
+    if peak > list_of_integers[mid - 1] and peak > list_of_integers[mid + 1]:
+        return peak
+    elif peak < list_of_integers[mid - 1]:
+        return find_peak(list_of_integers[:mid])
+    else:
+        return find_peak(list_of_integers[mid + 1:])
