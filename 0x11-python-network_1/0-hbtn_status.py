@@ -1,13 +1,16 @@
 #!/usr/bin/python3
-"""Fetches http://0.0.0.0:5050/status."""
+"""Fetches https://alx-intranet.hbtn.io/status."""
 import urllib.request
 
 if __name__ == "__main__":
-    url = "http://0.0.0.0:5050/status"
-    request = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})
-    with urllib.request.urlopen(request) as response:
+    url = 'https://alx-intranet.hbtn.io/status'
+
+    res = urllib.request.Request(url)
+    with urllib.request.urlopen(res) as response:
         body = response.read()
+        utf8_content = body.decode('utf-8')
+
         print("Body response:")
-        print("\t- type: {}".format(type(body)))
-        print("\t- content: {}".format(body))
-        print("\t- utf8 content: {}".format(body.decode("utf-8")))
+        print("\t- type:", type(body))
+        print("\t- content:", body)
+        print("\t- utf8 content:", utf8_content)
