@@ -22,13 +22,25 @@ request.get(url, { json: true }, (err, res, body) => {
     return;
   }
 
-  characters.forEach((characterUrl) => {
-    request.get(characterUrl, { json: true }, (err, res, body) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      console.log(body.name);
+  const characterPromises = characters.map((characterUrl) => {
+    return new Promise((resolve, reject) => {
+      request.get(characterUrl, { json: true }, (err, res, body) => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(body.name);
+        }
+      });
     });
   });
+
+  Promise.all(characterPromises)
+    .then((names) => {
+      names.forEach((name) => {
+        console.log(name);
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
