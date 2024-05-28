@@ -1,35 +1,25 @@
 #!/usr/bin/node
 
-const axios = require('axios');
+const request = require('request');
 
-function getCompletedTasks (data, userId) {
-  let count = 0;
-  data
-    .filter((element) => element.userId === userId)
-    .forEach((task) => {
-      if (task.completed) {
-        count++;
-      }
-    });
-  return count;
+const movieId = process.argv[2];
+if (!movieId) {
+  console.error('Please provide a Movie ID');
+  process.exit(1);
 }
 
-const url = process.argv[2];
+const url = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
 
-axios.get(url)
-  .then(response => {
-    const data = response.data;
-    const results = {};
-    data.forEach((element) => {
-      if (!(element.userId in results)) {
-        const completedTasks = getCompletedTasks(data, element.userId);
-        if (completedTasks > 0) {
-          results[element.userId] = completedTasks;
-        }
-      }
-    });
-    console.log(results);
-  })
-  .catch(err => {
+request.get(url, { json: true }, (err, res, body) => {
+  if (err) {
     console.error(err);
-  });
+    return;
+  }
+
+  if (res.statusCode === 200) {
+    console.log(body.title);
+  } else {
+    console.error(`Error: ${res.statusCode}`);
+  }
+});
+
