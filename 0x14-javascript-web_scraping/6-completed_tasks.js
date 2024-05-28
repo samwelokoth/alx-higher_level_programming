@@ -33,4 +33,3 @@ axios.get(url)
   .catch(err => {
     console.error(err);
   });
-
