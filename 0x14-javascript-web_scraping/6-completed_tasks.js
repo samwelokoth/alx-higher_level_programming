@@ -16,10 +16,7 @@ request.get(url, { json: true }, (err, res, body) => {
     return;
   }
 
-  if (res.statusCode === 200) {
-    console.log(body.title);
-  } else {
-    console.error(`Error: ${res.statusCode}`);
-  }
+  console.log('Response body:', body);
+  console.log(body.title); // Assuming `title` is directly accessible in the response body
 });
 
