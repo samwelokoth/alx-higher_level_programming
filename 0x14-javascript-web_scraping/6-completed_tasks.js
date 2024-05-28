@@ -1,16 +1,36 @@
 #!/usr/bin/node
-const request = require('request');
-request(process.argv[2], function (error, response, body) {
-  if (!error) {
-    const todos = JSON.parse(body);
-    let completed = {};
-    todos.forEach((todo) => {
-      if (todo.completed && completed[todo.userId] === undefined) {
-        completed[todo.userId] = 1;
-      } else if (todo.completed) {
-        completed[todo.userId] += 1;
+
+const axios = require('axios');
+
+function getCompletedTasks (data, userId) {
+  let count = 0;
+  data
+    .filter((element) => element.userId === userId)
+    .forEach((task) => {
+      if (task.completed) {
+        count++;
       }
     });
-    console.log(completed);
-  }
-});
+  return count;
+}
+
+const url = process.argv[2];
+
+axios.get(url)
+  .then(response => {
+    const data = response.data;
+    const results = {};
+    data.forEach((element) => {
+      if (!(element.userId in results)) {
+        const completedTasks = getCompletedTasks(data, element.userId);
+        if (completedTasks > 0) {
+          results[element.userId] = completedTasks;
+        }
+      }
+    });
+    console.log(results);
+  })
+  .catch(err => {
+    console.error(err);
+  });
+
