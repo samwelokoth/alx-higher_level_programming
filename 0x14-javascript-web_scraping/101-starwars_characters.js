@@ -32,4 +32,3 @@ request.get(url, { json: true }, (err, res, body) => {
     });
   });
 });
-
